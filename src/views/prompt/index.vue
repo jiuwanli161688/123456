@@ -7,7 +7,7 @@
       <div class="content_box">
         <div class="content_top">您的申请已通过，请</div>
         <div class="content_center">前往刷脸机进行刷脸进人!</div>
-        <div class="content_foot">有效时间: 2025.08.14 12:34:45 - 2025.09.05 12:34:45</div>
+        <div class="content_foot">有效时间: {{ timeData.startTime }} - {{ timeData.endTime }}</div>
       </div>
     </div>
     <div class="button">
@@ -18,14 +18,29 @@
 
 <script setup>
 import { reactive, ref, onMounted } from "vue";
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
+import moment from "moment";
 
+const route = useRoute();
 const router = useRouter();
+
+const timeData = reactive({
+  startTime: '',
+  endTime: ''
+});
 
 const handleExit = () => {
   router.go(-1);
 };
-onMounted(() => { });
+onMounted(() => {
+  const { examineTime, validDays } = route.query;
+  if (examineTime && validDays) {
+    // 设置开始时间
+    timeData.startTime = moment(examineTime).format('YYYY.MM.DD HH:mm:ss');
+    // 计算结束时间：开始时间 + 有效天数
+    timeData.endTime = moment(examineTime).add(validDays, 'days').format('YYYY.MM.DD HH:mm:ss');
+  }
+});
 </script>
 
 <style lang="scss" scoped>

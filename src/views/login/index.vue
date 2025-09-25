@@ -211,7 +211,7 @@ const getPersonListApiFun = async () => {
     };
     const { list } = await getPersonListApi(params);
     if (list.length) {
-      const isExpired = moment().isAfter(moment(expireTime));
+      const isExpired = moment().isAfter(moment(list[0].expireTime));
       if (isExpired) {
         console.log('用户信息已过期');
         createPersonListApiFun();
@@ -222,7 +222,7 @@ const getPersonListApiFun = async () => {
         const timer = setTimeout(() => {
           toast.show = false;
         }, 2000);
-        router.push('/prompt', { query: { validDays: list[0].validDays } })
+        router.push('/prompt', { query: { examineTime: list[0].examineTime, validDays: list[0].validDays } })
       }
     } else {
       console.log('用户不存在');
@@ -252,7 +252,7 @@ const createPersonListApiFun = async () => {
     const timer = setTimeout(() => {
       toast.show = false;
     }, 2000);
-    // router.push('/prompt', { query: { validDays: list[0].validDays } })
+    router.push('/prompt', { query: { examineTime: list[0].examineTime, validDays: list[0].validDays } })
     console.log('信息提交', data);
   } catch (error) {
     console.error(error);
@@ -303,8 +303,6 @@ const handleHelp = () => {
 };
 
 onMounted(() => {
-  // router.push('/prompt', { query: { validDays: 12 } })
-
   itemData.portId = route.query.portId || '';
   itemData.teantName = route.query.teantName || '';
   itemData.tenantId = route.query.tenantId || '';
