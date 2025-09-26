@@ -41,7 +41,7 @@
               placeholder="请选择有效时间" @click="handleValidityType(true)" :rules="rules.validityType" />
           </div>
           <div class="line"></div>
-          <div class="form-item">
+          <!-- <div class="form-item">
             <span class="icon">*</span>
             <van-field name="uploader" label="照片录入:" placeholder="请录入照片" :rules="rules.files">
               <template #input>
@@ -53,20 +53,25 @@
                 </van-uploader>
               </template>
             </van-field>
-          </div>
-          <!-- <div class="line"></div> -->
-          <!-- <div class="form-item">
+          </div> -->
+          <div class="line"></div> 
+          <div class="form-item">
             <span class="icon">*</span>
+            <span class="form-item-label">照片录入:</span>
           </div>
           <div class="form-item">
-            <van-field name="uploader" :style="{ marginLeft: '-50px' }" label="" placeholder="请录入照片"
+            <van-field name="uploader" :style="{ marginLeft: '-10px' }" label="" placeholder="请录入照片"
               :rules="rules.files">
               <template #input>
-                <van-uploader v-model="ruleForm.files" :max-count="1" :after-read="afterRead" preview-size="80px"
-                  :preview-image="true" />
+                <van-uploader v-model="ruleForm.files" :max-count="1" :after-read="afterRead" preview-size="50px"
+                  style="width: 55px;height: 55px"
+                  class="upload-box"
+                  :preview-image="true">
+                  <div class="upload-btn"> </div>
+                </van-uploader>
               </template>
             </van-field>
-          </div> -->
+          </div>
         </van-form>
       </div>
       <div class="formContainer_submit">
@@ -488,6 +493,20 @@ onMounted(() => {
     height: 1px;
     background: #eee;
     margin: 0 10px;
+  }
+  .form-item-label {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #323232;
+    margin-left: 17px;
+    font-family: -apple-system, "system-ui", "Helvetica Neue", Helvetica, "Segoe UI", Arial, Roboto, "PingFang SC", miui, "Hiragino Sans GB", "Microsoft Yahei", sans-serif;
+  }
+  .upload-btn {
+    width: 55px;
+    height: 55px;
+    background: url(./../../images/zplr.png) no-repeat;
+    background-position: center center;
+    background-size: 60% 60%;
   }
 }
 </style>
